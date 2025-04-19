@@ -49,70 +49,99 @@
 
   <script>
     const allQuestions = [
-      { q: "Tu préfère être yag, yrruf, ib ou snart ?", answers: [
+      {
+        q: "Tu préfère être yag, yrruf, ib ou snart ?",
+        answers: [
           { text: "Snart", score: 0 },
           { text: "Uno reverse", score: 7 },
           { text: "Ib", score: 2 },
-          { text: "Yag", score: 0 }
-          { text: "Yrruf", score: 0 }
+          { text: "Yag", score: 0 },
+          { text: "Yrruf", score: 0 },
           { text: "Plutôt mourrir !", score: 10 }
-       ]},
-      { q: "Si tu vois un yag très blessé qui te supplie de le sauver, que fais tu ?", answers: [
+        ]
+      },
+      {
+        q: "Si tu vois un yag très blessé qui te supplie de le sauver, que fais tu ?",
+        answers: [
           { text: "Je l’aide tout de suite !", score: 0 },
           { text: "Je l’extermine sans pitié.", score: 6 },
           { text: "J’analyse la situation, si c’est un yag qu’il est encore possible de purifier, je le sauve et le purifie, sinon je le tue.", score: 10 },
           { text: "Je l’ignore", score: 4 }
-        ]},
-      { q: "Si tu as un ami qui devient yag, que fais tu ?", answers: [
+        ]
+      },
+      {
+        q: "Si tu as un ami qui devient yag, que fais tu ?",
+        answers: [
           { text: "Je le tue direct !", score: 2 },
           { text: "Je fais pareil que lui, c’est mon ami !", score: -5 },
           { text: "J’appelle un autre agent si possible et essaye de le purifier", score: 10 },
-          { text: "Je ne fais rien…", score: 0 }
+          { text: "Je ne fais rien…", score: 0 },
           { text: "Je lui fais écouter des musique TCY", score: 5 }
-        ]},
-      { q: "Si tu a l’impression qu’un yag est infiltré au TCY", answers: [
+        ]
+      },
+      {
+        q: "Si tu a l’impression qu’un yag est infiltré au TCY",
+        answers: [
           { text: "Je fais un test de yagophrénie et si je suis négatif, j’observe bien et si il est yag je le dénonce", score: 10 },
           { text: "Je le tue direct !", score: 1 },
           { text: "Je m’en fiche", score: 1 },
           { text: "Ce n’est pas grave", score: 0 }
-        ]},
-      { q: "Pour toi, quel est la principale mission du TCY ?", answers: [
+        ]
+      },
+      {
+        q: "Pour toi, quel est la principale mission du TCY ?",
+        answers: [
           { text: "Instaurer la peur et le chaos de partout", score: 0 },
           { text: "Protéger les citoyens des menaces yags", score: 6 },
           { text: "Exterminer les yags !", score: 2 },
           { text: "Aider les yags !", score: -5 }
-        ]},
-      { q: "Veux-tu t'engager à combattre les yags à chaque occasion ?", answers: [
+        ]
+      },
+      {
+        q: "Veux-tu t'engager à combattre les yags à chaque occasion ?",
+        answers: [
           { text: "Oui, c'est ma priorité", score: 10 },
           { text: "Oui, mais dans des situations appropriées", score: 7 },
           { text: "Non, je préfère éviter les confrontations", score: 0 },
           { text: "Je ne sais pas, je vais observer", score: 3 }
-        ]},
-      { q: "Seras-tu un membre loyal et fidèle au TCY en toutes circonstances ?", answers: [
+        ]
+      },
+      {
+        q: "Seras-tu un membre loyal et fidèle au TCY en toutes circonstances ?",
+        answers: [
           { text: "Non, je préfère rester indépendant", score: 2 },
           { text: "Oui, mais je pourrais avoir des doutes parfois", score: 4 },
           { text: "Oui, à 100% !", score: 10 },
           { text: "Je ne suis pas sûr, mais je veux essayer", score: 4 }
-        ]},
-      { q: "Si un ami te propose d’aller à une fête de yags:", answers: [
+        ]
+      },
+      {
+        q: "Si un ami te propose d’aller à une fête de yags:",
+        answers: [
           { text: "J’y vais, on s’en fiche", score: 1 },
           { text: "Ouiiiiiiii", score: 0 },
           { text: "J’y vais quand même pour observer, analyser et faire un rapport même si cela peut être dangereux", score: 7 },
           { text: "Non, jamais !", score: 4 }
-        ]},
-      { q: "Pense tu que les yags sont une menace pour la société ?", answers: [
+        ]
+      },
+      {
+        q: "Pense tu que les yags sont une menace pour la société ?",
+        answers: [
           { text: "Oui mais ils sont trop peu je suis beaucoup plus fort qu’eux !", score: 5 },
           { text: "Non, absolument pas", score: 0 },
           { text: "Oui, il faut faire attention !", score: 8 },
           { text: "Je ne sais pas, c'est complexe", score: 2 }
-        ]},
-      { q: "Es-tu prêt à devenir yag si le TCY te force ?", answers: [
+        ]
+      },
+      {
+        q: "Es-tu prêt à devenir yag si le TCY te force ?",
+        answers: [
           { text: "Oui, à 100%, j’exécute TOUS les ordres du TCY", score: 0 },
           { text: "Je lutterais", score: 6 },
           { text: "Non, jamais, plutôt mourrir, même si le TCY me le demande !", score: 10 },
           { text: "Je ne sais pas, ça dépend de la situation", score: 2 }
-        ]},
-      // ...ajouter d'autres questions ici
+        ]
+      }
     ];
 
     let currentQuestions = [];
@@ -127,7 +156,6 @@
     }
 
     function startQuiz() {
-      // Mélange les questions et sélectionne les 10 premières
       currentQuestions = shuffle(allQuestions).slice(0, 10);
       score = 0;
       displayQuestion(0);
@@ -160,7 +188,7 @@
 
     function showScore() {
       const container = document.getElementById("score");
-      let percentage = (score / (10 * 10)) * 100; // Score max: 10 réponses * 10 points max par réponse
+      let percentage = (score / (10 * 10)) * 100;
       container.innerHTML = `Votre score est : ${percentage}%`;
 
       let level = '';
@@ -174,14 +202,17 @@
         level = 'Agent du TCY';
       } else if (percentage >= 40) {
         level = 'Novice du TCY';
-       } else if (percentage >= 20) {
+      } else if (percentage >= 20) {
         level = 'Non admis au TCY';
-       } else {
+      } else {
         level = 'Supporteur de yags ! >:(';
       }
 
       container.innerHTML += `<br>Vous êtes : ${level}`;
     }
+
+    // Lancement automatique au chargement
+    window.onload = startQuiz;
   </script>
 
 </body>

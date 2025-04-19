@@ -49,65 +49,68 @@
 
   <script>
     const allQuestions = [
-      { q: "Es-tu prêt à défendre le TCY contre toutes les menaces ?", answers: [
-          { text: "Oui, à tout prix", score: 10 },
-          { text: "Oui, mais avec des réserves", score: 7 },
-          { text: "Non, je préfère éviter les conflits", score: 2 },
-          { text: "Je ne sais pas, je vais réfléchir", score: 0 }
+      { q: "Tu préfère être yag, yrruf, ib ou snart ?", answers: [
+          { text: "Snart", score: 0 },
+          { text: "Uno reverse", score: 7 },
+          { text: "Ib", score: 2 },
+          { text: "Yag", score: 0 }
+          { text: "Yrruf", score: 0 }
+          { text: "Plutôt mourrir !", score: 10 }
+       ]},
+      { q: "Si tu vois un yag très blessé qui te supplie de le sauver, que fais tu ?", answers: [
+          { text: "Je l’aide tout de suite !", score: 0 },
+          { text: "Je l’extermine sans pitié.", score: 6 },
+          { text: "J’analyse la situation, si c’est un yag qu’il est encore possible de purifier, je le sauve et le purifie, sinon je le tue.", score: 10 },
+          { text: "Je l’ignore", score: 4 }
         ]},
-      { q: "Serais-tu prêt à sacrifier quelque chose de précieux pour le TCY ?", answers: [
-          { text: "Oui, si c’est pour la cause", score: 10 },
-          { text: "Peut-être, cela dépend de la situation", score: 6 },
-          { text: "Non, je ne suis pas prêt à sacrifier quoi que ce soit", score: 0 },
-          { text: "Je pense qu’il y a d'autres alternatives", score: 4 }
+      { q: "Si tu as un ami qui devient yag, que fais tu ?", answers: [
+          { text: "Je le tue direct !", score: 2 },
+          { text: "Je fais pareil que lui, c’est mon ami !", score: -5 },
+          { text: "J’appelle un autre agent si possible et essaye de le purifier", score: 10 },
+          { text: "Je ne fais rien…", score: 0 }
+          { text: "Je lui fais écouter des musique TCY", score: 5 }
         ]},
-      { q: "Crois-tu que les Yags sont une menace sérieuse pour la communauté ?", answers: [
-          { text: "Oui, ils sont une menace directe", score: 10 },
-          { text: "Oui, mais ils peuvent être gérés", score: 7 },
-          { text: "Non, ce n'est pas une menace majeure", score: 2 },
-          { text: "Je ne sais pas, j’ai besoin de plus d’informations", score: 0 }
+      { q: "Si tu a l’impression qu’un yag est infiltré au TCY", answers: [
+          { text: "Je fais un test de yagophrénie et si je suis négatif, j’observe bien et si il est yag je le dénonce", score: 10 },
+          { text: "Je le tue direct !", score: 1 },
+          { text: "Je m’en fiche", score: 1 },
+          { text: "Ce n’est pas grave", score: 0 }
         ]},
-      { q: "Es-tu capable de prendre des décisions difficiles pour le bien de la cause ?", answers: [
-          { text: "Oui, je peux faire face aux situations difficiles", score: 10 },
-          { text: "Parfois, si je suis bien préparé", score: 7 },
-          { text: "Cela dépend de la situation", score: 4 },
-          { text: "Je préfère éviter les décisions difficiles", score: 0 }
+      { q: "Pour toi, quel est la principale mission du TCY ?", answers: [
+          { text: "Instaurer la peur et le chaos de partout", score: 0 },
+          { text: "Protéger les citoyens des menaces yags", score: 6 },
+          { text: "Exterminer les yags !", score: 2 },
+          { text: "Aider les yags !", score: -5 }
         ]},
-      { q: "Crois-tu en l'importance de la solidarité au sein du TCY ?", answers: [
-          { text: "Oui, c'est essentiel pour la survie du groupe", score: 10 },
-          { text: "Oui, mais il faut parfois agir seul", score: 6 },
-          { text: "Non, je pense qu'il faut d'abord se concentrer sur soi-même", score: 2 },
-          { text: "Je n'y ai jamais vraiment pensé", score: 0 }
-        ]},
-      { q: "Veux-tu t'engager à combattre les Yags à chaque occasion ?", answers: [
+      { q: "Veux-tu t'engager à combattre les yags à chaque occasion ?", answers: [
           { text: "Oui, c'est ma priorité", score: 10 },
           { text: "Oui, mais dans des situations appropriées", score: 7 },
-          { text: "Non, je préfère éviter les confrontations", score: 3 },
-          { text: "Je ne sais pas, je vais observer", score: 0 }
+          { text: "Non, je préfère éviter les confrontations", score: 0 },
+          { text: "Je ne sais pas, je vais observer", score: 3 }
         ]},
       { q: "Seras-tu un membre loyal et fidèle au TCY en toutes circonstances ?", answers: [
-          { text: "Oui, je suis dévoué à 100%", score: 10 },
-          { text: "Oui, mais je pourrais avoir des doutes parfois", score: 6 },
           { text: "Non, je préfère rester indépendant", score: 2 },
+          { text: "Oui, mais je pourrais avoir des doutes parfois", score: 4 },
+          { text: "Oui, à 100% !", score: 10 },
           { text: "Je ne suis pas sûr, mais je veux essayer", score: 4 }
         ]},
-      { q: "Est-ce que tu accepterais de sacrifier une partie de ta liberté pour le TCY ?", answers: [
-          { text: "Oui, pour la bonne cause", score: 10 },
-          { text: "Peut-être, selon les circonstances", score: 7 },
-          { text: "Non, je tiens trop à ma liberté", score: 2 },
-          { text: "Je ne sais pas, je vais réfléchir", score: 0 }
+      { q: "Si un ami te propose d’aller à une fête de yags:", answers: [
+          { text: "J’y vais, on s’en fiche", score: 1 },
+          { text: "Ouiiiiiiii", score: 0 },
+          { text: "J’y vais quand même pour observer, analyser et faire un rapport même si cela peut être dangereux", score: 7 },
+          { text: "Non, jamais !", score: 4 }
         ]},
-      { q: "Penses-tu que l'unité est plus importante que les différences individuelles ?", answers: [
-          { text: "Oui, l'unité est essentielle", score: 10 },
-          { text: "Parfois, mais je pense qu’il faut aussi respecter les différences", score: 7 },
-          { text: "Non, je crois qu’il faut privilégier les individus", score: 2 },
-          { text: "Je ne sais pas, c'est complexe", score: 0 }
+      { q: "Pense tu que les yags sont une menace pour la société ?", answers: [
+          { text: "Oui mais ils sont trop peu je suis beaucoup plus fort qu’eux !", score: 5 },
+          { text: "Non, absolument pas", score: 0 },
+          { text: "Oui, il faut faire attention !", score: 8 },
+          { text: "Je ne sais pas, c'est complexe", score: 2 }
         ]},
-      { q: "Es-tu prêt à prendre les armes pour défendre le TCY si nécessaire ?", answers: [
-          { text: "Oui, à 100%", score: 10 },
-          { text: "Peut-être, mais je préférerais éviter la violence", score: 6 },
-          { text: "Non, je ne suis pas prêt à cela", score: 0 },
-          { text: "Je ne sais pas, ça dépend de la situation", score: 4 }
+      { q: "Es-tu prêt à devenir yag si le TCY te force ?", answers: [
+          { text: "Oui, à 100%, j’exécute TOUS les ordres du TCY", score: 0 },
+          { text: "Je lutterais", score: 6 },
+          { text: "Non, jamais, plutôt mourrir, même si le TCY me le demande !", score: 10 },
+          { text: "Je ne sais pas, ça dépend de la situation", score: 2 }
         ]},
       // ...ajouter d'autres questions ici
     ];
@@ -161,14 +164,20 @@
       container.innerHTML = `Votre score est : ${percentage}%`;
 
       let level = '';
-      if (percentage >= 80) {
+      if (percentage >= 100) {
+        level = 'Dieu du TCY';
+      } else if (percentage >= 95) {
+        level = 'Tu es juste fait pour le TCY ! :D';
+      } else if (percentage >= 80) {
         level = 'Agent Elite du TCY';
       } else if (percentage >= 60) {
         level = 'Agent du TCY';
       } else if (percentage >= 40) {
         level = 'Novice du TCY';
-      } else {
+       } else if (percentage >= 20) {
         level = 'Non admis au TCY';
+       } else {
+        level = 'Supporteur de yags ! >:(';
       }
 
       container.innerHTML += `<br>Vous êtes : ${level}`;

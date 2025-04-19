@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questionnaire TCY</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('background.png');
+      background-size: cover;
+      background-attachment: fixed;
+      backdrop-filter: blur(8px);
+      color: white;
+      padding: 20px;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #d40000;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #resultat {
+      font-size: 24px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Questionnaire pour entrer au Técéygrec (TCY)</h1>
+  <form id="quizForm"></form>
+  <button onclick="soumettre()">Soumettre</button>
+  <div id="resultat"></div>
+
+  <script>
+    const questions = [
+      { q: "Quel est le but du Técéygrec ?", a: ["Combattre les yags", "Devenir célèbre", "Gagner de l'argent", "Aider les yags"], p: [1, 0, 0.25, 0] },
+      { q: "Qui était Walkez ?", a: ["Un ancien yag devenu agent du TCY", "Un chanteur", "Un président", "Un robot"], p: [1, 0, 0, 0] },
+      { q: "Comment éviter la contagion des particules yags ?", a: ["S'entraîner mentalement", "Se laver les mains", "Manger des pâtes", "Devenir yag"], p: [1, 0.25, 0, 0] },
+      { q: "Que faire si on est touché par un yag ?", a: ["Chercher un agent TCY", "Rester seul", "Appeler un yag", "Abandonner"], p: [1, 0, 0, 0] },
+      { q: "Que signifie TCY ?", a: ["Tous Contre les Yags", "Team Cool Youngs", "Tacos Chauds Yvelines", "Tournoi Champions Yag"], p: [1, 0, 0, 0] },
+      { q: "Que faire si on est en infériorité numérique face aux yags ?", a: ["Activer la yagophrénie", "Fuir immédiatement", "Négocier", "Se déguiser"], p: [1, 0.25, 0, 0] },
+      { q: "Qu’est-ce que la yagophrénie ?", a: ["Un état mental extrême anti-yag", "Une danse", "Un virus", "Une couleur"], p: [1, 0, 0, 0] },
+      { q: "Qui est Homix ?", a: ["Le fondateur du TCY", "Un général yag", "Un scientifique", "Un rappeur"], p: [1, 0, 0, 0] },
+      { q: "Comment repérer un yag infiltré ?", a: ["Son comportement suspect", "Sa couleur de cheveux", "Il est trop gentil", "Il ne parle pas"], p: [1, 0, 0.5, 0.25] },
+      { q: "Quel est le rôle d’un agent du TCY ?", a: ["Protéger l’humanité", "Créer des chansons", "Parler avec les yags", "Faire des TikToks"], p: [1, 0.25, 0, 0] },
+      { q: "Quelle est la faiblesse d’un yrruf ?", a: ["Le son aigu", "L’eau bénite", "Les câlins", "Les rations militaires"], p: [1, 0.5, 0, 0.25] },
+      { q: "Quel est le pire ennemi du TCY ?", a: ["Le yrruf", "Le soon", "Le chat", "Le téléphone"], p: [1, 0, 0, 0] },
+      { q: "Que faire en cas d’invasion massive de yags ?", a: ["Se battre avec rage", "Appeler la police", "Dormir", "Pleurer"], p: [1, 0.25, 0, 0] },
+      { q: "Le TCY recrute parfois à quel moment ?", a: ["Pendant la cantine", "Dans la rue", "Au supermarché", "Sur YouTube"], p: [1, 0.25, 0, 0] },
+      { q: "Quelles couleurs pourrait avoir le drapeau du TCY ?", a: ["Rouge et noir", "Bleu et vert", "Rose et violet", "Orange et blanc"], p: [1, 0.25, 0, 0] },
+      { q: "Un yag blessé appelle à l'aide. Tu :", a: ["Fonces avec la yagophrénie", "L’aide", "Le captures", "Le soignes"], p: [1, 0, 0.5, 0] },
+      { q: "Quel est ton état d'esprit face au danger ?", a: ["Déterminé", "Stressé", "Peureux", "Indécis"], p: [1, 0.25, 0, 0] },
+      { q: "Si tu entends ‘Camille’, tu penses :", a: ["Alerte yag", "Une amie", "Inoffensif", "Inconnu"], p: [1, 0.25, 0, 0] },
+      { q: "Les particules TCY servent à :", a: ["Purifier des agents", "Décorer les bases", "Faire joli", "Infecter les yags"], p: [1, 0.25, 0, 0.5] },
+      { q: "Si tu perds ton arme :", a: ["Tu continues avec tes poings", "Tu fuis", "Tu cries", "Tu abandonnes"], p: [1, 0, 0, 0] },
+      { q: "La meilleure arme contre un yrruf ?", a: ["Une muselière", "Un bâton", "Une boule de poils", "Un fromage"], p: [1, 0.25, 0, 0] },
+      { q: "Un soon se cache parmi vous. Tu :", a: ["L'observes discrètement", "Fuis", "L’invites à boire", "Appelles Homix"], p: [0.5, 0, 0, 1] },
+      { q: "Quel style de musique écoute un agent du TCY ?", a: ["Musique TCY", "Classique", "Pop", "Yag rap"], p: [1, 0.5, 0.25, 0] },
+      { q: "Qui est le plus fort ?", a: ["Un agent yagophrène", "Un chat mutant", "Un IB", "Un yrruf avec deux crocs"], p: [1, 0, 0.25, 0.25] },
+      { q: "Si tu trahis le TCY ?", a: ["C’est fini pour toi", "Tu t’en tires", "Tu rigoles", "Tu reviens"], p: [1, 0, 0, 0] },
+      { q: "Quelle est la capitale du Técéygrec ?", a: ["Forteresse de glace", "Paris", "BloxCity", "Zone 52"], p: [1, 0, 0.25, 0.5] },
+      { q: "Un yag déguisé en humain dit ‘salut’. Tu :", a: ["Ressens un doute", "Dis bonjour", "L’ignores", "Le tapes"], p: [1, 0.25, 0.25, 0.5] },
+      { q: "Quel est le nom secret du fondateur ?", a: ["Homix", "T-Rex", "Obi-One", "Dr. Max"], p: [1, 0, 0, 0.25] },
+      { q: "Un IB devient yag, que faire ?", a: ["Tenter de le purifier", "Le fuir", "Le capturer", "Le laisser faire"], p: [1, 0.25, 0.5, 0] },
+      { q: "Quel est ton objectif principal ?", a: ["Protéger le monde du danger des yags", "Devenir riche", "Être populaire", "Éviter les ennuis"], p: [1, 0, 0, 0] }
+    ];
+
+    function genererQuiz() {
+      const form = document.getElementById("quizForm");
+      form.innerHTML = "";
+      const indices = Array.from({ length: questions.length }, (_, i) => i).sort(() => 0.5 - Math.random()).slice(0, 10);
+
+      indices.forEach((i, idx) => {
+        const q = questions[i];
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<p>${idx + 1}. ${q.q}</p>`;
+        q.a.forEach((rep, j) => {
+          div.innerHTML += `<label><input type='radio' name='q${i}' value='${q.p[j]}'> ${rep}</label><br>`;
+        });
+        form.appendChild(div);
+      });
+    }
+
+    function soumettre() {
+      const inputs = document.querySelectorAll("input[type=radio]:checked");
+      let score = 0;
+      inputs.forEach(input => {
+        score += parseFloat(input.value);
+      });
+      const pourcentage = Math.round((score / 10) * 100);
+      const res = document.getElementById("resultat");
+      let message = "";
+      if (pourcentage === 100) message = "Tu es un véritable héros du Técéygrec !";
+      else if (pourcentage >= 80) message = "Tu es un agent très prometteur !";
+      else if (pourcentage >= 60) message = "Tu peux progresser, mais tu es sur la bonne voie.";
+      else if (pourcentage >= 40) message = "Fais attention, certains choix étaient douteux...";
+      else message = "Tu dois revoir les bases du Técéygrec.";
+      res.innerText = `Score : ${pourcentage}%\n${message}`;
+    }
+
+    genererQuiz();
+  </script>
+</body>
+</html>

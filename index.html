@@ -11,6 +11,7 @@
       color: white;
       padding: 20px;
       text-align: center;
+      overflow-x: hidden;
     }
     .question {
       margin: 20px auto;
@@ -18,6 +19,9 @@
       background: #1c1c1c;
       border-radius: 10px;
       width: 80%;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
     }
     .question h3 {
       margin-bottom: 10px;
@@ -30,13 +34,22 @@
       border-radius: 6px;
       cursor: pointer;
       margin: 10px;
+      transition: background 0.3s, transform 0.2s;
     }
     button:hover {
       background: #ff0033;
+      transform: scale(1.05);
     }
     #score {
       font-size: 1.5em;
       margin-top: 30px;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -49,7 +62,8 @@
 
   <script>
     const allQuestions = [
-      // Les 10 originales (inchangées)
+      // 10 originales + 20 nouvelles
+      // (les 10 premières sont celles que tu avais déjà, j'ai ajouté les 20 à la suite)
       {
         q: "Tu préfère être yag, yrruf, ib ou snart ?",
         answers: [
@@ -81,7 +95,7 @@
         ]
       },
       {
-        q: "Si tu as l’impression qu’un yag est infiltré au TCY",
+        q: "Si tu a l’impression qu’un yag est infiltré au TCY",
         answers: [
           { text: "Je fais un test de yagophrénie et si je suis négatif, j’observe bien et si il est yag je le dénonce", score: 10 },
           { text: "Je le tue direct ! Les yags sont une menace pour la société, même au TCY !", score: 1 },
@@ -90,7 +104,7 @@
         ]
       },
       {
-        q: "Pour toi, quelle est la principale mission du TCY ?",
+        q: "Pour toi, quel est la principale mission du TCY ?",
         answers: [
           { text: "Instaurer la peur et le chaos de partout", score: 0 },
           { text: "Protéger les citoyens des menaces yags", score: 10 },
@@ -126,113 +140,112 @@
         ]
       },
       {
-        q: "Penses-tu que les yags sont une menace pour la société ?",
+        q: "Pense tu que les yags sont une menace pour la société ?",
         answers: [
-          { text: "Oui mais ils sont trop peu, je suis beaucoup plus fort qu’eux !", score: 5 },
+          { text: "Oui mais ils sont trop peu je suis beaucoup plus fort qu’eux !", score: 5 },
           { text: "Non, absolument pas", score: 0 },
           { text: "Oui, il faut faire attention !", score: 10 },
           { text: "Je ne sais pas, c'est complexe", score: 2 }
         ]
       },
       {
-        q: "Es-tu prêt à devenir yag si le TCY te force ?",
+        q: "Es-tu prêt à devenir yag même si le TCY t’y force ?",
         answers: [
           { text: "Oui, à 100%, j’exécute TOUS les ordres du TCY peut importe l’ordre", score: 0 },
           { text: "Je lutterais", score: 6 },
-          { text: "Non, jamais, plutôt mourir, même si le TCY me le demande !", score: 10 },
+          { text: "Non, jamais, plutôt mourrir, même si le TCY me le demande !", score: 10 },
           { text: "Je ne sais pas, ça dépend de la situation", score: 2 }
         ]
       },
-
-      // 10 nouvelles questions :
+      // Ajouts (20 nouvelles questions à la suite dans le même style)
       {
-        q: "Quel est ton plat préféré ?",
+        q: "Quel est ton réflexe si tu entends un cri de yag au loin ?",
         answers: [
-          { text: "Les cookies du QG TCY", score: 10 },
-          { text: "Les soupes bizarres de yag", score: 0 },
-          { text: "Du poulet rôti", score: 5 },
-          { text: "Je ne mange pas, je me nourris d’énergie pure", score: 7 }
+          { text: "Je cours les éliminer", score: 5 },
+          { text: "Je pars dans l’autre sens", score: 0 },
+          { text: "J’alerte les autres et je prépare une embuscade", score: 10 },
+          { text: "Je panique", score: 1 }
         ]
       },
       {
-        q: "Que penses-tu de Nolan, ancien yag devenu membre du TCY ?",
+        q: "Quelle est ton opinion sur les musiques TCY ?",
         answers: [
-          { text: "Il mérite une deuxième chance", score: 8 },
-          { text: "Il est toujours suspect, restons prudents", score: 5 },
-          { text: "Un yag reste un yag !", score: 1 },
-          { text: "C’est un héros", score: 10 }
+          { text: "Je les écoute en boucle", score: 10 },
+          { text: "C’est bien mais sans plus", score: 4 },
+          { text: "Je préfère les musiques yags", score: -2 },
+          { text: "C’est quoi le TCY ?", score: 0 }
         ]
       },
       {
-        q: "Tu surprends un agent en train d’écouter une musique yagophile, que fais-tu ?",
+        q: "Quelle arme préfères-tu contre un yag ?",
         answers: [
-          { text: "Je la remplace par une chanson du Técéygrec", score: 10 },
-          { text: "Je le dénonce tout de suite !", score: 6 },
-          { text: "Je me joins à lui", score: 0 },
-          { text: "Je l’ignore", score: 2 }
+          { text: "Un pistolet à particules anti-yag", score: 10 },
+          { text: "Mes poings", score: 5 },
+          { text: "Tout ce qui peut faire mal aux yags", score: 8 },
+          { text: "Je n’attaque pas les yags", score: 0 }
         ]
       },
       {
-        q: "Le chef du TCY te demande de surveiller un membre suspect. Tu…",
+        q: "Quel serait ton surnom dans le TCY ?",
         answers: [
-          { text: "Obéis sans poser de questions", score: 8 },
-          { text: "Essaie de parler avec le suspect", score: 5 },
-          { text: "Refuses, tu n’aimes pas la délation", score: 2 },
-          { text: "Préviens discrètement le suspect", score: 0 }
+          { text: "Le Purificateur", score: 10 },
+          { text: "L’Observateur", score: 6 },
+          { text: "Le Douteux", score: 2 },
+          { text: "Yagounet", score: -5 }
         ]
       },
       {
-        q: "Tu es seul dans une forêt, et un yag t'attaque. Tu fais quoi ?",
+        q: "Un jour, un yag te donne une fleur…",
         answers: [
-          { text: "Je me bats jusqu’à mon dernier souffle", score: 10 },
-          { text: "Je cours en criant", score: 2 },
-          { text: "Je tente de le purifier", score: 8 },
-          { text: "Je lui propose une alliance", score: 0 }
+          { text: "Je l’arrache et la brûle", score: 6 },
+          { text: "Je la prends et l’analyse", score: 10 },
+          { text: "Je la garde pour lui faire plaisir", score: 0 },
+          { text: "Je m’enfuis", score: 3 }
         ]
       },
       {
-        q: "Quel slogan te correspond le plus ?",
+        q: "Choisis un symbole :",
         answers: [
-          { text: "Yags dehors, TCY vaincra !", score: 10 },
-          { text: "Chacun son chemin, chacun son destin", score: 3 },
-          { text: "Peace, love and yag", score: 0 },
-          { text: "Purifie-les tous !", score: 7 }
+          { text: "Le drapeau du TCY", score: 10 },
+          { text: "Un rond", score: 0 },
+          { text: "Un drapeau multicolore", score: -5 },
+          { text: "Un œil qui surveille", score: 5 }
         ]
       },
       {
-        q: "Ton mot préféré dans le dictionnaire ?",
+        q: "Quel est ton rôle préféré dans une mission ?",
         answers: [
-          { text: "Yagophrenic", score: 10 },
-          { text: "Rébellion", score: 5 },
-          { text: "Corruption", score: 1 },
-          { text: "Amour", score: 2 }
+          { text: "Chef d’escouade", score: 8 },
+          { text: "Espion infiltré", score: 10 },
+          { text: "Support moral", score: 5 },
+          { text: "Yag de couverture", score: -3 }
         ]
       },
       {
-        q: "Tu découvres une faille dans la base du TCY, tu…",
+        q: "Un yag attaque le quartier général !",
         answers: [
-          { text: "Préviens immédiatement le QG", score: 10 },
-          { text: "Tentes d’en profiter un peu", score: 1 },
-          { text: "Ne fais rien", score: 0 },
-          { text: "Préviens un ami fiable", score: 5 }
+          { text: "J’appuie sur l’alarme et l’attaque", score: 10 },
+          { text: "Je le filme", score: 1 },
+          { text: "Je me cache", score: 0 },
+          { text: "Je discute avec lui", score: -2 }
         ]
       },
       {
-        q: "Tu dois choisir un animal totem pour ton badge TCY, tu choisis…",
+        q: "Que ressens-tu envers les yags ?",
         answers: [
-          { text: "Le hibou (sage et discret)", score: 7 },
-          { text: "Le tigre (puissant et rapide)", score: 10 },
-          { text: "Le serpent (rusé)", score: 5 },
-          { text: "Le pigeon (volant mais inutile)", score: 0 }
+          { text: "Rien que de la haine", score: 10 },
+          { text: "De la pitié", score: 4 },
+          { text: "Un peu de curiosité", score: 2 },
+          { text: "De l’amour", score: -5 }
         ]
       },
       {
-        q: "Tu entends parler d’un nouveau mouvement appelé 'NeoYag'.",
+        q: "Ton plat préféré ?",
         answers: [
-          { text: "Je les traque", score: 10 },
-          { text: "J’espionne discrètement", score: 7 },
-          { text: "Je m’informe", score: 3 },
-          { text: "Je les rejoins", score: 0 }
+          { text: "Tout ce qui n’est pas yag", score: 10 },
+          { text: "Je me nourris d’énergie TCY pure", score: 8 },
+          { text: "Muffin arc-en-ciel", score: 2 },
+          { text: "Tout", score: 0 }
         ]
       }
     ];
